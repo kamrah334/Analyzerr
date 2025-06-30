@@ -4,74 +4,29 @@
   <meta charset="UTF-8" />
   <title>SEO Image Analyzer</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    #downloadLink { display: none; margin-top: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <h1>SEO Image Analyzer</h1>
-  <form id="uploadForm">
-    <input type="file" id="imageUpload" multiple accept="image/*" />
-    <button type="submit">Analyze</button>
-  </form>
+  <p>Upload your images and get SEO titles and keywords below:</p>
 
-  <div id="results"></div>
-  <a id="downloadLink" href="#" download="seo_results.csv">Download CSV</a>
-
-  <script>
-    const form = document.getElementById("uploadForm");
-    const imageInput = document.getElementById("imageUpload");
-    const resultsDiv = document.getElementById("results");
-    const downloadLink = document.getElementById("downloadLink");
-
-    form.onsubmit = async (e) => {
-      e.preventDefault();
-      const files = imageInput.files;
-      if (!files.length) {
-        alert("Please upload images");
-        return;
-      }
-
-      const formData = new FormData();
-      for (let i = 0; i < files.length && i < 500; i++) {
-        formData.append("files", files[i]); // ✅ field name = 'files'
-      }
-
-      resultsDiv.innerHTML = "<p>Analyzing images... please wait ⏳</p>";
-      downloadLink.style.display = "none";
-
-      try {
-        const response = await fetch("https://kamran78651214--analyzer.hf.space/run/predict", {
-          method: "POST",
-          body: formData
-        });
-
-        if (!response.ok) {
-          const errText = await response.text();
-          throw new Error("Server error: " + errText);
-        }
-
-        const result = await response.json();
-        const data = result.data[0];
-        const csvUrl = result.data[1];
-
-        // Show results in table
-        let html = "<h3>Results</h3><table><tr><th>Filename</th><th>SEO Title</th><th>Keywords</th></tr>";
-        for (const item of data) {
-          html += `<tr><td>${item.filename}</td><td>${item.seo_title}</td><td>${item.keywords}</td></tr>`;
-        }
-        html += "</table>";
-        resultsDiv.innerHTML = html;
-
-        // Show download link
-        downloadLink.href = csvUrl;
-        downloadLink.style.display = "inline";
-      } catch (error) {
-        resultsDiv.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
-      }
-    };
-  </script>
+  <!-- Embedded Hugging Face Space -->
+  <iframe
+    src="https://kamran78651214-analyzer.hf.space"
+    loading="lazy"
+    allow="clipboard-write"
+  ></iframe>
 </body>
 </html>
