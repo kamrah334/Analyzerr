@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>SEO Image Analyzer</title>
 </head>
 <body>
@@ -31,21 +30,19 @@
         formData.append("files", files[i]);
       }
 
-      const response = await fetch("https://<your-huggingface-username>.hf.space/run/predict", {
+      const response = await fetch("https://your-space-name.hf.space/run/predict", {
         method: "POST",
         body: formData
       });
 
       const result = await response.json();
 
-      // Show results
       resultsDiv.innerHTML = "<h3>Results</h3><table border='1'><tr><th>Filename</th><th>Title</th><th>Keywords</th></tr>";
       for (const item of result.data[0]) {
         resultsDiv.innerHTML += `<tr><td>${item.filename}</td><td>${item.seo_title}</td><td>${item.keywords}</td></tr>`;
       }
       resultsDiv.innerHTML += "</table>";
 
-      // Set download link
       downloadLink.href = result.data[1];
       downloadLink.style.display = "inline";
     };
