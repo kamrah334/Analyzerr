@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SEO Image Analyzer</title>
   <style>
+    :root {
+      --primary-color: #1e3a8a;
+      --secondary-color: #3b82f6;
+      --background: #f9fafb;
+      --text-color: #1f2937;
+      --container-width: 1100px;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -12,70 +20,67 @@
     }
 
     body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: #f0f2f5;
-      color: #1c1e21;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text-color);
+      background: var(--background);
     }
 
     nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
       background: white;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 20px;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
       z-index: 1000;
     }
 
-    nav .logo {
+    .logo {
       font-size: 1.5rem;
-      font-weight: 600;
-      color: #1877f2;
+      font-weight: 700;
+      color: var(--primary-color);
     }
 
     nav ul {
-      display: flex;
       list-style: none;
-      gap: 20px;
+      display: flex;
+      gap: 25px;
     }
 
     nav ul li a {
       text-decoration: none;
-      color: #050505;
       font-weight: 500;
-      font-size: 1rem;
+      color: var(--text-color);
+      transition: color 0.3s;
     }
 
     nav ul li a:hover {
-      color: #1877f2;
+      color: var(--secondary-color);
     }
 
-    header {
-      padding-top: 100px;
+    .hero {
+      background: linear-gradient(to right, #1e3a8a, #2563eb);
+      color: white;
+      padding: 100px 20px;
       text-align: center;
-      background: white;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #dddfe2;
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      color: #050505;
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
     }
 
-    header p {
-      font-size: 1.1rem;
-      color: #606770;
-      margin-top: 10px;
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.6;
     }
 
     .container {
-      max-width: 900px;
+      max-width: var(--container-width);
       margin: 40px auto;
       padding: 0 20px;
     }
@@ -84,65 +89,61 @@
       width: 100%;
       height: 800px;
       border: none;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
 
     .card {
       background: white;
-      padding: 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-      margin-top: 40px;
+      padding: 30px;
+      margin-top: 60px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
 
     .card h2 {
       margin-bottom: 15px;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      color: var(--primary-color);
     }
 
     .card p {
-      line-height: 1.6;
-      color: #1c1e21;
+      line-height: 1.7;
+      font-size: 1rem;
+      color: #374151;
     }
 
     footer {
+      background: #1e293b;
+      color: white;
+      padding: 30px 20px;
       text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #606770;
-      background: #f0f2f5;
-      margin-top: 60px;
+      margin-top: 80px;
+      font-size: 0.95rem;
     }
 
     @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        height: auto;
-        padding: 10px 15px;
-        gap: 10px;
-      }
-
-      nav ul {
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      header h1 {
+      .hero h1 {
         font-size: 2rem;
       }
 
       iframe {
         height: 600px;
       }
+
+      nav ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
     }
 
     @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.6rem;
+      .hero h1 {
+        font-size: 1.5rem;
       }
 
-      header p {
+      .hero p {
         font-size: 1rem;
       }
 
@@ -154,6 +155,7 @@
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav>
     <div class="logo">SEO Analyzer</div>
     <ul>
@@ -163,11 +165,13 @@
     </ul>
   </nav>
 
-  <header id="home">
-    <h1>SEO Image Analyzer</h1>
-    <p>Generate SEO titles and keywords for your images instantly</p>
-  </header>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h1>Boost Your Images with AI-Powered SEO</h1>
+    <p>Generate professional, search-optimized titles and keywords for your images in seconds — perfect for content creators, bloggers, and e-commerce professionals.</p>
+  </section>
 
+  <!-- Main Content -->
   <div class="container">
     <iframe
       src="https://kamran78651214-analyzer.hf.space"
@@ -177,17 +181,21 @@
 
     <div id="about" class="card">
       <h2>About</h2>
-      <p>SEO Image Analyzer is a free online tool designed to help content creators, marketers, and online sellers generate professional image titles and keyword tags optimized for search engines. Whether you run a blog or an e-commerce store, our AI-powered app boosts your content visibility effortlessly.</p>
+      <p>
+        The SEO Image Analyzer is a smart, AI-powered tool designed to help you maximize the visibility of your images. Whether you're a marketer, designer, seller, or blogger, our tool quickly creates SEO-friendly titles and keyword tags that improve ranking and discovery across search engines and platforms.
+      </p>
     </div>
 
     <div id="contact" class="card">
       <h2>Contact</h2>
-      <p>Have questions or suggestions? We’d love to hear from you soon!</p>
+      <p>
+        Have feedback, suggestions, or want to collaborate? We're always looking to improve the SEO Image Analyzer and help creators do more with less effort.
+      </p>
     </div>
   </div>
 
   <footer>
-    &copy; 2025 SEO Image Analyzer • Built by Kamran Haider
+    &copy; 2025 SEO Image Analyzer • Designed by Kamran Haider
   </footer>
 
 </body>
